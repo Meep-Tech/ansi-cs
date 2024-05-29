@@ -10,7 +10,7 @@ namespace Meep.Tech.Text {
         /// <summary>
         /// The ANSI code for resetting all styles.
         /// </summary>
-        public const int ResetCode 
+        public const int ResetCode
             = 0;
 
         /// <summary>
@@ -366,7 +366,7 @@ namespace Meep.Tech.Text {
                 ? $"{Escape(color)}{text}"
                 : $"{Escape(color)}{text}{Reset()}";
 
-        public static string AddBG(string text, Bg bg, bool thenReset = true)
+        public static string AddBg(string text, Bg bg, bool thenReset = true)
             => (!thenReset || text.EndsWith(Reset()))
                 ? $"{Escape(bg)}{text}"
                 : $"{Escape(bg)}{text}{Reset()}";
@@ -375,6 +375,15 @@ namespace Meep.Tech.Text {
             => (!thenReset || text.EndsWith(Reset()))
                 ? $"{Escape(effect)}{text}"
                 : $"{Escape(effect)}{text}{Reset()}";
+
+        public static string Bold(string text, bool thenReset = true)
+            => AddEffect(text, Effect.Bold, thenReset);
+
+        public static string Italic(string text, bool thenReset = true)
+            => AddEffect(text, Effect.Italic, thenReset);
+
+        public static string Underline(string text, bool thenReset = true)
+            => AddEffect(text, Effect.Underline, thenReset);
 
         public static string Stylize(
             string text,
@@ -473,6 +482,19 @@ namespace Meep.Tech.Text {
             return sb.ToString();
         }
 
+        public static string Indent(string text, int amount, char indent = '\t', bool initial = true, bool newline = true)
+            => Indent(text, amount, indent.ToString(), initial, newline);
+
+        public static string Indent(string text, int amount, string indent = "\t", bool initial = true, bool newline = true) {
+            string indents = string.Concat(Enumerable.Repeat(indent, amount));
+            return $"{(newline ? '\n' : "")}{(initial ? indents : "")}{text.Replace("\n", indents)}";
+        }
+
+        public static string Dedent(string text, int? amount = null, string indent = "\t|  ")
+            => amount is null
+                ? _GetRemoveAllIndentRegex().Replace(text, "")
+                : Regex.Replace(text, $"^({indent}){{{amount}}}", "", RegexOptions.Multiline);
+
         public static string Escape(Color color)
             => Escape((int)color);
 
@@ -510,5 +532,8 @@ namespace Meep.Tech.Text {
 
         [GeneratedRegex(@"\e\[\d+m")]
         private static partial Regex _GetEscapeRegEx();
+
+        [GeneratedRegex(@"^\s+", RegexOptions.Multiline)]
+        private static partial Regex _GetRemoveAllIndentRegex();
     }
 }
