@@ -133,6 +133,12 @@ namespace Meep.Tech.Text {
             public RGB(byte r, byte g, byte b)
                 => (R, G, B) = (r, g, b);
 
+            public readonly void Deconstruct(out byte r, out byte g, out byte b) {
+                r = R;
+                g = G;
+                b = B;
+            }
+
             /// <summary>
             /// Used to lighten this color using linear interpolation.
             /// </summary>
@@ -183,12 +189,6 @@ namespace Meep.Tech.Text {
                     (byte)(a.G + ((b.G - a.G) * scale)),
                     (byte)(a.B + ((b.B - a.B) * scale))
                 );
-
-            public readonly void Deconstruct(out byte r, out byte g, out byte b) {
-                r = R;
-                g = G;
-                b = B;
-            }
 
             public static implicit operator RGB((byte r, byte g, byte b) rgb)
                 => new(rgb.r, rgb.g, rgb.b);
