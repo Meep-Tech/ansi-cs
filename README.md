@@ -3,14 +3,6 @@
 ANSI Text Styling and Formatting helpers, extensions, and constants for C#.
 Used to color and stylize strings for terminal and console output using ANSI text escapes.
 
-## Installation
-
-This package can be installed via NuGet using the following command:
-
-```dotnetcli
-dotnet add package Meep.Tech.ANSI
-```
-
 ## Styling Features
 
 This library uses ANSI escape codes and whitespace to enable easy and simple styling of text output for many standard consoles and terminals.
@@ -95,10 +87,11 @@ Tests are contained within a seperate .Net C# Project named `Meep.Tech.ANSI.Test
 
 ## TODO
 
-- [ ] Features:
+- [ ] Publish to NuGet
+- [ ] Add Features:
   - [ ] Support for 8-bit ANSI Colors via the RGB struct's constructor
   - [ ] Conversion between 24, 8, and 4 bit colors
-- [ ] Tests:
+- [ ] Add Tests:
   - [ ] Styling
     - [ ] Color
     - [ ] Bg
