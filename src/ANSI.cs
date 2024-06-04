@@ -450,13 +450,22 @@ namespace Meep.Tech.Text {
         public static string Escape(string code)
             => $"{EscapePrefix}{code}{EscapeSuffix}";
 
+        public static string Escape(Color? color = null!, Color? bg = null!)
+            => color is not null && bg is not null
+                ? $"{Escape(color.Value)}{EscapeBg(bg.Value)}"
+                : color is not null
+                    ? Escape(color.Value)
+                    : bg is not null
+                        ? EscapeBg(bg.Value)
+                        : "";
+
         public static string Escape(RGB? color = null!, RGB? bg = null!)
             => color is not null && bg is not null
                 ? $"{Escape(color)}{Escape(bg)}"
                 : color is not null
-                    ? Escape(color)
+                    ? Escape(color.Value)
                     : bg is not null
-                        ? Escape(bg)
+                        ? EscapeBg(bg.Value)
                         : "";
 
         public static string Escape(RGB color, bool asBg = false)
@@ -466,6 +475,9 @@ namespace Meep.Tech.Text {
 
         public static string Escape(RGB color)
             => $"{EscapePrefix}38;2;{color.R};{color.G};{color.B}{EscapeSuffix}";
+
+        public static string EscapeBg(Color color)
+            => Escape((int)color + 10);
 
         public static string EscapeBg(RGB color)
             => $"{EscapePrefix}48;2;{color.R};{color.G};{color.B}{EscapeSuffix}";
