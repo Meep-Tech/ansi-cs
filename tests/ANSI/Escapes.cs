@@ -48,6 +48,31 @@ namespace Meep.Tech.Text.Tests {
             }
 
             [Theory]
+            [InlineData(Text.ANSI.Bg.Black)]
+            [InlineData(Text.ANSI.Bg.Red)]
+            [InlineData(Text.ANSI.Bg.Green)]
+            [InlineData(Text.ANSI.Bg.Yellow)]
+            [InlineData(Text.ANSI.Bg.Blue)]
+            [InlineData(Text.ANSI.Bg.Magenta)]
+            [InlineData(Text.ANSI.Bg.Cyan)]
+            [InlineData(Text.ANSI.Bg.White)]
+            [InlineData(Text.ANSI.Bg.BrightBlack)]
+            [InlineData(Text.ANSI.Bg.BrightRed)]
+            [InlineData(Text.ANSI.Bg.BrightGreen)]
+            [InlineData(Text.ANSI.Bg.BrightYellow)]
+            [InlineData(Text.ANSI.Bg.BrightBlue)]
+            [InlineData(Text.ANSI.Bg.BrightMagenta)]
+            [InlineData(Text.ANSI.Bg.BrightCyan)]
+            [InlineData(Text.ANSI.Bg.BrightWhite)]
+            public void Bg(Text.ANSI.Bg bg) {
+                string code = ((int)bg).ToString();
+                string expected = $"\u001b[{code}m";
+                string actual = Text.ANSI.Escape(bg);
+
+                Assert.Equal(expected, actual);
+            }
+
+            [Theory]
             [InlineData(Text.ANSI.Color.Black)]
             [InlineData(Text.ANSI.Color.Red)]
             [InlineData(Text.ANSI.Color.Green)]

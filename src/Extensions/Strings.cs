@@ -1,14 +1,31 @@
 ﻿namespace Meep.Tech.Text {
+
+    /// <summary>
+    /// Extension methods for ANSI strings.
+    /// </summary>
     public static class ANSIStringExtensions {
+
+        /// <inheritdoc cref="ANSI.AddColor(string, ANSI.Color, bool)"/>
         public static string Color(this string text, ANSI.Color color)
             => ANSI.AddColor(text, color);
 
+        /// <inheritdoc cref="ANSI.AddColor(string, ANSI.RGB, bool)"/>
         public static string Color(this string text, ANSI.RGB color)
             => ANSI.AddColor(text, color);
 
+        /// <inheritdoc cref="ANSI.AddBg(string, ANSI.Bg, bool)"/>
         public static string Bg(this string text, ANSI.Bg bg)
                 => ANSI.AddBg(text, bg);
 
+        /// <inheritdoc cref="ANSI.AddBg(string, ANSI.Color, bool)"/>
+        public static string Bg(this string text, ANSI.Color bg)
+                => ANSI.AddBg(text, bg);
+
+        /// <inheritdoc cref="ANSI.AddBg(string, ANSI.RGB, bool)"/>
+        public static string Bg(this string text, ANSI.RGB bg)
+                => ANSI.AddBg(text, bg);
+
+        /// <inheritdoc cref="ANSI.AddEffect(string, ANSI.Effect, bool)"/>
         public static string Effect(this string text, ANSI.Effect effect)
             => ANSI.AddEffect(text, effect);
 
@@ -24,8 +41,11 @@
         public static string Indent(this string text, int count = 1, string indent = "\t", bool inline = false)
             => ANSI.Indent(text, count, indent, !inline, !inline);
 
-        public static string Dedent(this string text, int? count = null, string indent = "\t|  ")
+        public static string Dedent(this string text, int count = 1, string indent = "\t|  ")
             => ANSI.Dedent(text, count, indent);
+
+        public static string Undent(this string text)
+            => ANSI.Undent(text);
 
         public static string Style(
             this string text,
