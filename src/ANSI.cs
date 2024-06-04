@@ -192,10 +192,10 @@ namespace Meep.Tech.Text {
             => AddEffect(text, Effect.Underline, thenReset);
 
         /// <summary>
-        /// Add the ANSI escape codes to a peice of text for the given style options.
+        /// Add the ANSI escape codes to a piece of text for the given style options.
         /// </summary>
         /// <param name="text">The text to style.</param>
-        /// <param name="color">The forground/text color to set.</param>
+        /// <param name="color">The foreground/text color to set.</param>
         /// <param name="bg">The background color to set.</param>
         /// <param name="effect">The text effect to set.</param>
         /// <param name="thenReset">Whether to reset the styling after the given text (helpful for chaining).</param>
@@ -317,8 +317,8 @@ namespace Meep.Tech.Text {
         /// <param name="text">The text to indent.</param>
         /// <param name="amount">The amount of indentation to add.</param>
         /// <param name="indent">The indentation to use.</param>
-        /// <param name="initial">Whether to indent the first line (appended to start of the text). (Defalts to true).</param>
-        /// <param name="newline">Whether to add a newline before the text (and before optional inital indent). (Defaults to true).</param>
+        /// <param name="initial">Whether to indent the first line (appended to start of the text). (Defaults to true).</param>
+        /// <param name="newline">Whether to add a newline before the text (and before optional initial indent). (Defaults to true).</param>
         public static string Indent(string text, int amount = 1, char indent = '\t', bool initial = true, bool newline = true)
             => Indent(text, amount, indent.ToString(), initial, newline);
 
@@ -343,7 +343,7 @@ namespace Meep.Tech.Text {
             => _GetRemoveAllIndentRegex().Replace(text, "");
 
         /// <summary>
-        /// Get the ANSI escape code for a given text/forground color.
+        /// Get the ANSI escape code for a given text/foreground color.
         /// </summary>
         public static string Escape(Color color)
             => Escape((int)color);

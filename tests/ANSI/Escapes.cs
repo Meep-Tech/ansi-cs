@@ -109,7 +109,6 @@ namespace Meep.Tech.Text.Tests {
                 Assert.Equal(expected, actual);
             }
 
-
             [Theory]
             [InlineData(Text.ANSI.Effect.Bold)]
             [InlineData(Text.ANSI.Effect.Faint)]

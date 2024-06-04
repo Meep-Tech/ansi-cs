@@ -1,6 +1,6 @@
 # Meep.Tech.ANSI
 ANSI Text Styling and Formatting helpers, extensions, and constants for C#.
-Used to color and styleize strings for terminal and console output using ANSI text escapes.
+Used to color and stylize strings for terminal and console output using ANSI text escapes.
 
 ## Installation
 This package can be installed via NuGet using the following command:
@@ -17,7 +17,7 @@ The `ANSI.Color` enum provides access to the standard list of [3 and 4-bit ANSI 
 This list includes the bright versions of each standard color as well as 0 to use as a Reset Code.
 
 #### RGB Colors (24-bit)
-[24-bit ANSI RGB colors](https://en.wikipedia.org/wiki/ANSI_escape_code#24-bit) can be built using the `ANSI.RGB` struct. This struct provides a constructor that each take three byte values for Red, Green, and Blue respectively in order to produce the 24-bit RGB color value. The struct defenition also includes several static pre-defined colors and helper methods to lighten, darken, and adjust them.
+[24-bit ANSI RGB colors](https://en.wikipedia.org/wiki/ANSI_escape_code#24-bit) can be built using the `ANSI.RGB` struct. This struct provides a constructor that each take three byte values for Red, Green, and Blue respectively in order to produce the 24-bit RGB color value. The struct definition also includes several static pre-defined colors and helper methods to lighten, darken, and adjust them.
 
 ### Effects
 Various ANSI effects are also included using the `ANSI.Effect` enum. These effects can be applied to text using the `[Add]Effect` [method](#methods).
@@ -56,5 +56,5 @@ All stylization functions are available statically via the [ANSI](./src/ANSI.cs 
 | Darker   | Used to darken a color by 20%.                                            |
 | Dimmer   | Used to dim a color by 50%.                                               |
 | Brighter | Used to brighten a color 50%                                              |
-| Mix      | Used to blend two colors together. (Statically accessable via `RGB.Lerp`) |
+| Mix      | Used to blend two colors together. (Statically accessible via `RGB.Lerp`) |
 | Random   | Used to generate a random color on the fly.                               |
