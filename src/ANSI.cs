@@ -61,13 +61,14 @@ namespace Meep.Tech.Text {
         }
 
         /// <summary>
-        /// A full RGB ANSI color.
+        /// A full 24-bit RGB ANSI color.
         /// </summary>
         public readonly struct RGB {
             #region Private Fields
-            private static readonly Random _rng = new();
+            private static readonly Lazy<Random> _rng = new();
             #endregion
 
+            #region Predefined Colors
             public static readonly RGB Black = (0, 0, 0);
             public static readonly RGB Red = (255, 0, 0);
             public static readonly RGB Green = (0, 255, 0);
@@ -81,14 +82,15 @@ namespace Meep.Tech.Text {
             public static readonly RGB Pink = (255, 192, 203);
             public static readonly RGB Brown = (165, 42, 42);
             public static readonly RGB Gray = (128, 128, 128);
+            #endregion
 
             /// <summary>
             /// Get a random RGB color.
             /// </summary>
             public static RGB Random => new(
-                (byte)_rng.Next(0, 256),
-                (byte)_rng.Next(0, 256),
-                (byte)_rng.Next(0, 256)
+                (byte)_rng.Value.Next(0, 256),
+                (byte)_rng.Value.Next(0, 256),
+                (byte)_rng.Value.Next(0, 256)
             );
 
             /// <summary>
@@ -198,71 +200,9 @@ namespace Meep.Tech.Text {
 
             public static implicit operator (byte r, byte g, byte b)(RGB rgb)
                 => (rgb.R, rgb.G, rgb.B);
-
-            public static implicit operator Color(RGB rgb) {
-                Color bestMatch = Color.Reset;
-                double bestDistance = double.MaxValue;
-
-                foreach(Color color in Colors.Values) {
-                    RGB colorRGB = color switch {
-                        Color.Black => Black,
-                        Color.Red => Red,
-                        Color.Green => Green,
-                        Color.Yellow => Yellow,
-                        Color.Blue => Blue,
-                        Color.Magenta => Magenta,
-                        Color.Cyan => Cyan,
-                        Color.White => White,
-                        Color.BrightBlack => Black,
-                        Color.BrightRed => Red,
-                        Color.BrightGreen => Green,
-                        Color.BrightYellow => Yellow,
-                        Color.BrightBlue => Blue,
-                        Color.BrightMagenta => Magenta,
-                        Color.BrightCyan => Cyan,
-                        Color.BrightWhite => White,
-                        _ => Black
-                    };
-
-                    double distance = Math.Sqrt(
-                        Math.Pow(colorRGB.R - rgb.R, 2) +
-                        Math.Pow(colorRGB.G - rgb.G, 2) +
-                        Math.Pow(colorRGB.B - rgb.B, 2)
-                    );
-
-                    if(distance < bestDistance) {
-                        bestDistance = distance;
-                        bestMatch = color;
-                    }
-                }
-
-                return bestMatch;
-            }
-
-            public static implicit operator RGB(Color color) {
-                return color switch {
-                    Color.Black => Black,
-                    Color.Red => Red,
-                    Color.Green => Green,
-                    Color.Yellow => Yellow,
-                    Color.Blue => Blue,
-                    Color.Magenta => Magenta,
-                    Color.Cyan => Cyan,
-                    Color.White => White,
-                    Color.BrightBlack => Black,
-                    Color.BrightRed => Red,
-                    Color.BrightGreen => Green,
-                    Color.BrightYellow => Yellow,
-                    Color.BrightBlue => Blue,
-                    Color.BrightMagenta => Magenta,
-                    Color.BrightCyan => Cyan,
-                    Color.BrightWhite => White,
-                    _ => Black
-                };
-            }
         }
 
-        public static readonly Dictionary<string, Color> Colors = new() {
+        public static readonly IReadOnlyDictionary<string, Color> Colors = new Dictionary<string, Color>() {
             { "default", Color.Reset },
             { "black", Color.Black },
             { "red", Color.Red },
@@ -274,7 +214,7 @@ namespace Meep.Tech.Text {
             { "white", Color.White },
             { "grey", Color.BrightBlack },
             { "gray", Color.BrightBlack }
-        };
+        }.AsReadOnly();
 
         public enum Bg {
             Reset = ResetCode,
@@ -296,7 +236,7 @@ namespace Meep.Tech.Text {
             BrightWhite = 107,
         }
 
-        public static readonly Dictionary<string, Bg> Backgrounds = new() {
+        public static readonly IReadOnlyDictionary<string, Bg> Backgrounds = new Dictionary<string, Bg>() {
             { "default", Bg.Reset },
             { "black", Bg.Black },
             { "red", Bg.Red },
@@ -308,7 +248,7 @@ namespace Meep.Tech.Text {
             { "white", Bg.White },
             { "grey", Bg.BrightBlack },
             { "gray", Bg.BrightBlack },
-        };
+        }.AsReadOnly();
 
         public enum Effect {
             Reset = ResetCode,
@@ -326,7 +266,7 @@ namespace Meep.Tech.Text {
             Overlined = 53,
         }
 
-        public static readonly Dictionary<string, Effect> Effects = new() {
+        public static readonly IReadOnlyDictionary<string, Effect> Effects = new Dictionary<string, Effect>() {
             { "default", Effect.Reset },
             { "bold", Effect.Bold },
             { "faint", Effect.Faint },
@@ -344,7 +284,7 @@ namespace Meep.Tech.Text {
             { "framed", Effect.Framed },
             { "encircled", Effect.Encircled },
             { "overlined", Effect.Overlined },
-        };
+        }.AsReadOnly();
 
         public static string Clear(string text) {
             Regex pattern = _GetEscapeRegEx();
@@ -530,10 +470,14 @@ namespace Meep.Tech.Text {
         public static string EscapeBg(RGB color)
             => $"{EscapePrefix}48;2;{color.R};{color.G};{color.B}{EscapeSuffix}";
 
+        #region Generated Regex
+
         [GeneratedRegex(@"\e\[\d+m")]
         private static partial Regex _GetEscapeRegEx();
 
         [GeneratedRegex(@"^\s+", RegexOptions.Multiline)]
         private static partial Regex _GetRemoveAllIndentRegex();
+
+        #endregion
     }
 }

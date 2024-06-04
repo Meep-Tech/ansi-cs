@@ -2,6 +2,12 @@
 ANSI Text Styling and Formatting helpers, extensions, and constants for C#.
 Used to color and styleize strings for terminal and console output using ANSI text escapes.
 
+## Installation
+This package can be installed via NuGet using the following command:
+```dotnetcli
+dotnet add package Meep.Tech.ANSI
+```
+
 ## Text Styling
 ### Colors
 Colors can be applied to either the foreground or background of text using the `[Add]Color` and `[Add]Bg` [methods](#methods) respectively. Arguments for color can be provided in two ways: As a [Simple Color](#simple-colors) or [RGB Color](#rgb-colors).
