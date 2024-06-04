@@ -116,12 +116,10 @@ namespace Meep.Tech.Text {
                 ? $"{ResetEscape}{text}"
                 : ResetEscape;
 
-#pragma warning disable CS0419 // Ambiguous reference in cref attribute (for Stylize overload args; it doesnt matter which is used)
-
         /// <summary>
         /// Add the ANSI escape code to set the text color using simple 4-bit colors.
         /// </summary>
-        /// <params><inheritdoc cref="Stylize" path="/param"/></params>
+        /// <params><inheritdoc cref="Stylize(string, Color?, Bg?, Effect?, bool)" path="/param"/></params>
         public static string AddColor(string text, Color color, bool thenReset = true)
             => (!thenReset || text.EndsWith(Reset()))
                 ? $"{Escape(color)}{text}"
@@ -130,7 +128,7 @@ namespace Meep.Tech.Text {
         /// <summary>
         /// Add the ANSI escape code to set the text color using a full RGB color.
         /// </summary>
-        /// <params><inheritdoc cref="Stylize" path="/param"/></params>
+        /// <params><inheritdoc cref="Stylize(string, Color?, Bg?, Effect?, bool)" path="/param"/></params>
         public static string AddColor(string text, RGB color, bool thenReset = true)
             => (!thenReset || text.EndsWith(Reset()))
                 ? $"{Escape(color)}{text}"
@@ -139,7 +137,7 @@ namespace Meep.Tech.Text {
         /// <summary>
         /// Add the ANSI escape code to set the background color using simple 4-bit colors.
         /// </summary>
-        /// <params><inheritdoc cref="Stylize" path="/param"/></params>
+        /// <params><inheritdoc cref="Stylize(string, Color?, Bg?, Effect?, bool)" path="/param"/></params>
         public static string AddBg(string text, Bg bg, bool thenReset = true)
             => (!thenReset || text.EndsWith(Reset()))
                 ? $"{Escape(bg)}{text}"
@@ -148,7 +146,7 @@ namespace Meep.Tech.Text {
         /// <summary>
         /// Add the ANSI escape code to set the background color using simple 4-bit colors.
         /// </summary>
-        /// <params><inheritdoc cref="Stylize" path="/param"/></params>
+        /// <params><inheritdoc cref="Stylize(string, Color?, Bg?, Effect?, bool)" path="/param"/></params>
         public static string AddBg(string text, Color bg, bool thenReset = true)
             => (!thenReset || text.EndsWith(Reset()))
                 ? $"{EscapeBg(bg)}{text}"
@@ -157,7 +155,7 @@ namespace Meep.Tech.Text {
         /// <summary>
         /// Add the ANSI escape code to set the background color using full RGB colors.
         /// </summary>
-        /// <params><inheritdoc cref="Stylize" path="/param"/></params>
+        /// <params><inheritdoc cref="Stylize(string, Color?, Bg?, Effect?, bool)" path="/param"/></params>
         public static string AddBg(string text, RGB bg, bool thenReset = true)
             => (!thenReset || text.EndsWith(Reset()))
                 ? $"{EscapeBg(bg)}{text}"
@@ -166,7 +164,7 @@ namespace Meep.Tech.Text {
         /// <summary>
         /// Add the ANSI escape code to set the text effect.
         /// </summary>
-        /// <params><inheritdoc cref="Stylize" path="/param"/></params>
+        /// <params><inheritdoc cref="Stylize(string, Color?, Bg?, Effect?, bool)" path="/param"/></params>
         public static string AddEffect(string text, Effect effect, bool thenReset = true)
             => (!thenReset || text.EndsWith(Reset()))
                 ? $"{Escape(effect)}{text}"
@@ -175,33 +173,31 @@ namespace Meep.Tech.Text {
         /// <summary>
         /// Add the ANSI escape code for bold text.
         /// </summary>
-        /// <params><inheritdoc cref="Stylize" path="/param"/></params>
+        /// <params><inheritdoc cref="Stylize(string, Color?, Bg?, Effect?, bool)" path="/param"/></params>
         public static string Bold(string text, bool thenReset = true)
             => AddEffect(text, Effect.Bold, thenReset);
 
         /// <summary>
         /// Add the ANSI escape code for italic text.
         /// </summary>
-        /// <params><inheritdoc cref="Stylize" path="/param"/></params>
+        /// <params><inheritdoc cref="Stylize(string, Color?, Bg?, Effect?, bool)" path="/param"/></params>
         public static string Italic(string text, bool thenReset = true)
             => AddEffect(text, Effect.Italic, thenReset);
 
         /// <summary>
         /// Add the ANSI escape code for underlined text.
         /// </summary>
-        /// <params><inheritdoc cref="Stylize" path="/param"/></params>
+        /// <params><inheritdoc cref="Stylize(string, Color?, Bg?, Effect?, bool)" path="/param"/></params>
         public static string Underline(string text, bool thenReset = true)
             => AddEffect(text, Effect.Underline, thenReset);
-
-#pragma warning restore CS0419 // Ambiguous reference in cref attribute
 
         /// <summary>
         /// Add the ANSI escape codes to a peice of text for the given style options.
         /// </summary>
         /// <param name="text">The text to style.</param>
-        /// <param name="color">The color to set.</param>
+        /// <param name="color">The forground/text color to set.</param>
         /// <param name="bg">The background color to set.</param>
-        /// <param name="effect">The effect to set.</param>
+        /// <param name="effect">The text effect to set.</param>
         /// <param name="thenReset">Whether to reset the styling after the given text (helpful for chaining).</param>
         public static string Stylize(
             string text,
