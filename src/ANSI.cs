@@ -325,7 +325,7 @@ namespace Meep.Tech.Text {
         /// <inheritdoc cref="Indent(string, int, char, bool, bool)"/>
         public static string Indent(string text, int amount = 1, string indent = "\t", bool initial = true, bool newline = true) {
             string indents = string.Concat(Enumerable.Repeat(indent, amount));
-            return $"{(newline ? '\n' : "")}{(initial ? indents : "")}{text.Replace("\n", indents)}";
+            return $"{(newline ? '\n' : "")}{(initial ? indents : "")}{text.Replace("\n", "\n" + indents)}";
         }
 
         /// <summary>
