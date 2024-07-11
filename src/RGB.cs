@@ -223,6 +223,31 @@ namespace Meep.Tech.Text {
             /// </summary>
             public static implicit operator (int r, int g, int b)(RGB rgb)
                 => (rgb.R, rgb.G, rgb.B);
+
+            /// <summary>
+            /// Implicitly convert an ANSI Console color to an RGB color.
+            /// </summary>
+            public static implicit operator RGB(Color color)
+                => color switch {
+                    Color.Reset => White,
+                    Color.Black => Black,
+                    Color.Red => Red,
+                    Color.Green => Green,
+                    Color.Blue => Blue,
+                    Color.Yellow => Yellow,
+                    Color.Magenta => Magenta,
+                    Color.Cyan => Cyan,
+                    Color.White => White,
+                    Color.BrightBlack => Gray,
+                    Color.BrightRed => Red.Brighter,
+                    Color.BrightGreen => Green.Brighter,
+                    Color.BrightBlue => Blue.Brighter,
+                    Color.BrightYellow => Yellow.Brighter,
+                    Color.BrightMagenta => Magenta.Brighter,
+                    Color.BrightCyan => Cyan.Brighter,
+                    Color.BrightWhite => White.Brighter,
+                    _ => throw new ArgumentOutOfRangeException(nameof(color), color, "Unknown ANSI Console color.")
+                };
         }
     }
 }

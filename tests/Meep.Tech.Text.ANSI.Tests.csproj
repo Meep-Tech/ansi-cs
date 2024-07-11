@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Meep.Tech.ANSI.csproj" />
+    <ProjectReference Include="..\Meep.Tech.Text.ANSI.csproj" />
   </ItemGroup>
 
 </Project>
