@@ -312,37 +312,6 @@ namespace Meep.Tech.Text {
         }
 
         /// <summary>
-        /// Indent a block of text by a given amount.
-        /// </summary>
-        /// <param name="text">The text to indent.</param>
-        /// <param name="amount">The amount of indentation to add.</param>
-        /// <param name="indent">The indentation to use.</param>
-        /// <param name="initial">Whether to indent the first line (appended to start of the text). (Defaults to true).</param>
-        /// <param name="newline">Whether to add a newline before the text (and before optional initial indent). (Defaults to true).</param>
-        public static string Indent(string text, int amount = 1, char indent = '\t', bool initial = true, bool newline = true)
-            => Indent(text, amount, indent.ToString(), initial, newline);
-
-        /// <inheritdoc cref="Indent(string, int, char, bool, bool)"/>
-        public static string Indent(string text, int amount = 1, string indent = "\t", bool initial = true, bool newline = true) {
-            string indents = string.Concat(Enumerable.Repeat(indent, amount));
-            return $"{(newline ? '\n' : "")}{(initial ? indents : "")}{text.Replace("\n", "\n" + indents)}";
-        }
-
-        /// <summary>
-        /// Dedent a block of text by a given amount.
-        /// </summary>
-        /// <params><inheritdoc cref="Indent(string, int, char, bool, bool)"/></params>
-        public static string Dedent(string text, int amount = 1, string indent = "\t|  ")
-            => Regex.Replace(text, $"^({indent}){{{amount}}}", "", RegexOptions.Multiline);
-
-        /// <summary>
-        /// Remove all indentation from a block of text.
-        /// </summary>
-        /// <params><inheritdoc cref="Indent(string, int, char, bool, bool)"/></params>
-        public static string Undent(string text)
-            => _GetRemoveAllIndentRegex().Replace(text, "");
-
-        /// <summary>
         /// Get the ANSI escape code for a given text/foreground color.
         /// </summary>
         public static string Escape(Color color)

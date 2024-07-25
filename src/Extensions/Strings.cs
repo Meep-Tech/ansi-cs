@@ -41,22 +41,6 @@
         public static string Underline(this string text)
             => ANSI.Underline(text);
 
-        /// <inheritdoc cref="ANSI.Indent(string, int, string, bool, bool)"/>
-        /// <param name="text"><inheritdoc cref="ANSI.Indent(string, int, string, bool, bool)" path="/param[@name='text']"/></param>
-        /// <param name="count"><inheritdoc cref="ANSI.Indent(string, int, string, bool, bool)" path="/param[@name='count']"/></param>
-        /// <param name="indent"><inheritdoc cref="ANSI.Indent(string, int, string, bool, bool)" path="/param[@name='indent']"/></param>
-        /// <param name="inline">Determines if the indent should be inline or not (if false, a newline and indent are prepended). (Defaults to false)</param>
-        public static string Indent(this string text, int count = 1, string indent = "\t", bool inline = false)
-            => ANSI.Indent(text, count, indent, !inline, !inline);
-
-        /// <inheritdoc cref="ANSI.Dedent(string, int, string)"/>
-        public static string Dedent(this string text, int count = 1, string indent = "\t|  ")
-            => ANSI.Dedent(text, count, indent);
-
-        /// <inheritdoc cref="ANSI.Undent(string)"/>
-        public static string Undent(this string text)
-            => ANSI.Undent(text);
-
         /// <inheritdoc cref="ANSI.Stylize(string, ANSI.Color?, ANSI.Bg?, ANSI.Effect?, bool)"/>
         public static string Style(
             this string text,
